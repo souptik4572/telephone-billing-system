@@ -1,29 +1,33 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser');
-
 // Our DB models
-const User = require('./models/user.js');
+const User = require('./models/user');
+
+mongoose.connect('mongodb://localhost:27017/user_db', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 const app = express();
 
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
-// Configuring passport in our App
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(
 	expressSession({
-		secret: 'Telephone',
+		secret: 'telephone-billing-system',
 		resave: false,
 		saveUninitialized: false,
 	})
 );
+
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+// Configuring passport in our App
 
 passport.use(new LocalStrategy(User.authenticate()));
 
@@ -33,9 +37,10 @@ passport.deserializeUser(User.deserializeUser());
 // Our middleware
 const isLoggedIn = (req, res, next) => {
 	if (req.isAuthenticated()) {
+		console.log(req.isAuthenticated());
 		return next();
 	}
-	res.render('login');
+	res.redirect('/login');
 };
 
 // All our routes
@@ -57,7 +62,7 @@ app.post('/register', (req, res) => {
 	User.register(new User({ username }), password, (error, user) => {
 		if (error) {
 			console.log(error);
-			res.render('register');
+			return res.render('register');
 		}
 		passport.authenticate('local')(req, res, () => {
 			res.redirect('/secret');
@@ -75,9 +80,7 @@ app.post(
 		successRedirect: '/secret',
 		failureRedirect: '/login',
 	}),
-	(req, res) => {
-
-    }
+	(req, res) => {}
 );
 
 app.get('/logout', (req, res) => {
