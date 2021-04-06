@@ -25,6 +25,7 @@ app.use(
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 // Configuring passport in our App
@@ -37,7 +38,6 @@ passport.deserializeUser(User.deserializeUser());
 // Our middleware
 const isLoggedIn = (req, res, next) => {
 	if (req.isAuthenticated()) {
-		console.log(req.isAuthenticated());
 		return next();
 	}
 	res.redirect('/login');
@@ -45,7 +45,7 @@ const isLoggedIn = (req, res, next) => {
 
 // All our routes
 
-app.get('/home', (req, res) => {
+app.get('/home', isLoggedIn, (req, res) => {
 	res.render('home');
 });
 
@@ -58,8 +58,8 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-	const { username, password } = req.body;
-	User.register(new User({ username }), password, (error, user) => {
+	const { username, name, password } = req.body;
+	User.register(new User({ username, name }), password, (error, user) => {
 		if (error) {
 			console.log(error);
 			return res.render('register');
@@ -89,7 +89,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-	res.redirect('/home');
+	res.sendFile('index.html');
 });
 
 const PORT = process.env.PORT || 3000;

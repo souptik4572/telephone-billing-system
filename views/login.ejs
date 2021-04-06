@@ -1,9 +1,54 @@
 <%- include('templates/header.ejs') %>
-<h3>Login to start using</h3>
-<form action="/login" method="post">
-	<input type="text" name="username" placeholder="enter your email" /><br />
-	<input type="password" name="password" placeholder="enter your password" /><br />
-	<button type="submit">submit</button>
-</form>
-<a href="/register">Register</a>
+<div class="auth">
+	<div class="left login"></div>
+	<div class="right blue-grey lighten-5">
+		<div class="container">
+			<div class="row">
+				<p class="title">Login</p>
+				<p class="other-option">
+					Don't have an account ? <a href="/register">Create One</a>
+				</p>
+			</div>
+			<div class="row">
+				<form class="col s12" action="/login" method="POST">
+					<div class="row">
+						<div class="input-field col s12">
+							<input
+								id="email"
+								type="email"
+								class="validate"
+								required
+								name="username"
+							/>
+							<label for="email">Email</label>
+							<span class="helper-text" data-error="wrong" data-success="right">
+								Enter the email
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input
+								id="password"
+								type="password"
+								class="validate"
+								required
+								name="password"
+							/>
+							<label for="password">Password</label>
+							<span class="helper-text" data-error="wrong" data-success="right">
+								Enter the password
+							</span>
+						</div>
+					</div>
+					<div class="row center-align">
+						<button class="btn waves-effect waves-light" type="submit" name="action">
+							Login
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <%- include('templates/footer.ejs') %>

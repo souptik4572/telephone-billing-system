@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@100&display=swap');
+
+.index {
+	width: 100vw;
+	height: 100vh;
+	background-image: url('https://images.unsplash.com/photo-1532526338225-bc66ea49a9f2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1531&q=80');
+	background-size: cover;
+	background-position: center;
+	display: grid;
+	place-items: center;
+}
+
+.index-title {
+	width: 100%;
+	display: block;
+	color: white;
+	text-transform: capitalize;
+	text-align: center;
+	font-family: 'Great Vibes', cursive;
+}
+
+.index-title h1 {
+	font-size: 10rem;
+	letter-spacing: 0.3rem;
+	font-weight: 900;
+}
+
+.index-title p {
+	font-family: 'Roboto', sans-serif;
+	font-size: 2.5rem;
+	letter-spacing: 0.3rem;
+	text-transform: capitalize;
+}
+
+.index-options {
+	display: flex;
+	justify-content: center;
+}
+
+.index-options a {
+	margin: 0px 3rem;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+	font-size: 1rem;
+	font-weight: 300;
+}
+
+.auth {
+	width: 100vw;
+	height: 100vh;
+}
+
+.auth .left,
+.auth .right {
+	width: 50%;
+	height: 100%;
+}
+
+.auth .left {
+	background-size: cover;
+	background-position: center;
+}
+
+.auth .left.sign-up {
+	background-image: url('https://images.unsplash.com/photo-1605972695554-4b31fd365a0c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1017&q=80');
+}
+
+.auth .left.login {
+	background-image: url('https://images.unsplash.com/photo-1567715639736-5dc828f9e92f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80');
+}
+
+.auth .right {
+	display: grid;
+	place-items: center;
+}
+
+.auth .title {
+	text-align: center;
+	margin: 10px auto;
+	font-weight: 300;
+	font-size: 4rem;
+	letter-spacing: 10px;
+	color: #616161;
+}
+
+.auth .other-option {
+	float: right;
+	font-size: 0.9rem;
+}
+
+.auth .other-option a {
+	text-decoration: underline;
+	transition: 0.3s;
+}
+
+.auth .other-option a:hover {
+	color: #00e676;
+}
