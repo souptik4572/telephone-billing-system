@@ -4,9 +4,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 const expressSession = require('express-session');
+const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const faker = require('faker');
 // Our DB models
 const User = require('./models/user');
+const Connection = require('./models/connection');
+const { fake } = require('faker');
 
 mongoose.connect('mongodb://localhost:27017/user_db', {
 	useNewUrlParser: true,
@@ -25,6 +29,7 @@ app.use(
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,6 +40,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	next();
+});
+
 // Our middleware
 const isLoggedIn = (req, res, next) => {
 	if (req.isAuthenticated()) {
@@ -44,14 +54,6 @@ const isLoggedIn = (req, res, next) => {
 };
 
 // All our routes
-
-app.get('/home', isLoggedIn, (req, res) => {
-	res.render('home');
-});
-
-app.get('/secret', isLoggedIn, (req, res) => {
-	res.render('secret');
-});
 
 app.get('/register', (req, res) => {
 	res.render('register');
@@ -65,7 +67,7 @@ app.post('/register', (req, res) => {
 			return res.render('register');
 		}
 		passport.authenticate('local')(req, res, () => {
-			res.redirect('/secret');
+			res.redirect('/connections');
 		});
 	});
 });
@@ -77,7 +79,7 @@ app.get('/login', (req, res) => {
 app.post(
 	'/login',
 	passport.authenticate('local', {
-		successRedirect: '/secret',
+		successRedirect: '/connections',
 		failureRedirect: '/login',
 	}),
 	(req, res) => {}
@@ -85,7 +87,93 @@ app.post(
 
 app.get('/logout', (req, res) => {
 	req.logout();
-	res.redirect('home');
+	res.redirect('/');
+});
+
+app.get('/connections/:id/edit', (req, res) => {
+	const { id } = req.params;
+	Connection.findById(id, (error, connection) => {
+		if (error) {
+			console.log('Oops an error occurred while finding connection');
+		}
+		console.log(connection);
+		res.render('edit', { connection });
+	});
+});
+
+app.get('/connections/:id', (req, res) => {
+	const { id } = req.params;
+	Connection.findById(id, (error, connection) => {
+		if (error) {
+			console.log('Oops an error occurred while finding connection');
+		}
+		console.log(connection);
+		res.render('show', { connection });
+	});
+});
+
+app.put('/connections/:id', (req, res) => {
+	const { id } = req.params;
+	const { connection } = req.body;
+	Connection.findByIdAndUpdate(id, connection, (error, connection) => {
+		if (error) {
+			console.log('Oops an error while editing connection');
+			return 0;
+		}
+		console.log(connection);
+		res.redirect('/connections');
+	});
+});
+
+app.delete('/connections/:id', (req, res) => {
+	const { id } = req.params;
+	Connection.findByIdAndDelete(id, (error) => {
+		if (error) {
+			console.log('Oops an error while deleting');
+			return 0;
+		}
+		res.redirect('/connections');
+	});
+});
+
+app.get('/connections', isLoggedIn, (req, res) => {
+	Connection.find({}, (error, connections) => {
+		if (error) {
+			console.log('Oops an error while fetching all the connections');
+			return;
+		}
+		res.render('connections', { connections });
+	});
+});
+
+app.get('/connections/new', isLoggedIn, (req, res) => {
+	res.render('new');
+});
+
+app.post('/connections', (req, res) => {
+	const { connection } = req.body;
+	const { _id, username } = req.user;
+	const owner = {
+		id: _id,
+		username: username,
+	};
+	connection.connectionName = faker.random.word();
+	connection.imageUrl = faker.image.business(200, 300);
+	connection.owner = owner;
+	Connection.create(connection, (error, connection) => {
+		if (error) {
+			console.log('Oops error while creating new connection', error);
+			return;
+		}
+		connection.save((error, connection) => {
+			if (error) {
+				console.log('Oops error while saving connection');
+				return;
+			}
+			console.log(connection);
+			res.redirect('/connections');
+		});
+	});
 });
 
 app.get('/', (req, res) => {

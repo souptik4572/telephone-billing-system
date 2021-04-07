@@ -1,0 +1,70 @@
+<%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
+<div class="connections">
+	<div class="container">
+		<div class="row">
+			<% connections.forEach(function(aConnection) { %> <%
+			if(aConnection.owner.id.equals(currentUser._id)) { %>
+			<div class="col s12 m6 l4">
+				<div class="card">
+					<div class="card-content">
+						<span class="card-title"><%= aConnection.connectionName %></span>
+						<p>
+							<span class="planType <%= aConnection.connectionType %>"
+								><%= aConnection.connectionType.toUpperCase() %></span
+							>
+						</p>
+						<div class="imp-details">
+							<p>
+								Owned against - <%= aConnection.firstName %> <%=
+								aConnection.lastName %>
+							</p>
+							<p>Contact Info - <%= aConnection.mobileNumber %></p>
+							<!-- <p>Address - <%= aConnection.address %></p> -->
+						</div>
+					</div>
+					<div class="card-action">
+						<a
+							class="tooltipped btn-floating btn-small waves-effect waves-light cyan"
+							data-position="bottom"
+							data-tooltip="Edit"
+							href="/connections/<%= aConnection._id %>/edit"
+							><i class="material-icons">edit</i></a
+						>
+						<a
+							class="tooltipped btn-floating btn-small waves-effect waves-light light-green darken-1"
+							href="/connections/<%= aConnection._id %>"
+							data-position="bottom"
+							data-tooltip="Get Info"
+							><i class="material-icons">info</i></a
+						>
+						<form
+							action="/connections/<%= aConnection._id %>?_method=DELETE"
+							method="POST"
+						>
+							<button
+								class="tooltipped btn-floating btn-small waves-effect waves-light red darken-1"
+								data-position="bottom"
+								data-tooltip="Delete"
+							>
+								<i class="material-icons">delete</i>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<% } %> <% }) %>
+		</div>
+	</div>
+
+	<div class="fixed-action-btn">
+		<a
+			href="/connections/new"
+			data-position="left"
+			data-tooltip="Add a new connection"
+			class="tooltipped btn-floating btn-large orange pulse"
+		>
+			<i class="large material-icons">add</i>
+		</a>
+	</div>
+</div>
+<%- include('templates/footer.ejs') %>
