@@ -90,6 +90,10 @@ app.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
+app.get('/connections/new', isLoggedIn, (req, res) => {
+	res.render('new');
+});
+
 app.get('/connections/:id/edit', (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
@@ -101,7 +105,7 @@ app.get('/connections/:id/edit', (req, res) => {
 	});
 });
 
-app.get('/connections/:id', (req, res) => {
+app.get('/connections/:id', isLoggedIn, (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
 		if (error) {
@@ -146,10 +150,6 @@ app.get('/connections', isLoggedIn, (req, res) => {
 	});
 });
 
-app.get('/connections/new', isLoggedIn, (req, res) => {
-	res.render('new');
-});
-
 app.post('/connections', (req, res) => {
 	const { connection } = req.body;
 	const { _id, username } = req.user;
@@ -158,7 +158,7 @@ app.post('/connections', (req, res) => {
 		username: username,
 	};
 	connection.connectionName = faker.random.word();
-	connection.imageUrl = faker.image.business(200, 300);
+	connection.isPaymentPending = true;
 	connection.owner = owner;
 	Connection.create(connection, (error, connection) => {
 		if (error) {

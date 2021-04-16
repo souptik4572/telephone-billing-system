@@ -7,7 +7,7 @@ const ConnectionSchema = new mongoose.Schema({
 	address: String,
 	connectionType: String,
 	connectionName: String,
-	imageUrl: String,
+	isPaymentPending: Boolean,
 	owner: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,

@@ -1,13 +1,19 @@
 <%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
 <div class="connections">
 	<div class="container">
+		<div class="container header">
+			<h1>All your connections</h1>
+		</div>
 		<div class="row">
 			<% connections.forEach(function(aConnection) { %> <%
 			if(aConnection.owner.id.equals(currentUser._id)) { %>
 			<div class="col s12 m6 l4">
 				<div class="card">
 					<div class="card-content">
-						<span class="card-title"><%= aConnection.connectionName %></span>
+						<span class="card-title"
+							><%= aConnection.connectionName %>
+							<span class="new badge pink accent-2" data-badge-caption="Pay"></span
+						></span>
 						<p>
 							<span class="planType <%= aConnection.connectionType %>"
 								><%= aConnection.connectionType.toUpperCase() %></span
@@ -17,6 +23,7 @@
 							<p>
 								Owned against - <%= aConnection.firstName %> <%=
 								aConnection.lastName %>
+								<br />
 							</p>
 							<p>Contact Info - <%= aConnection.mobileNumber %></p>
 							<!-- <p>Address - <%= aConnection.address %></p> -->
@@ -31,7 +38,7 @@
 							><i class="material-icons">edit</i></a
 						>
 						<a
-							class="tooltipped btn-floating btn-small waves-effect waves-light light-green darken-1"
+							class="tooltipped btn-floating waves-effect waves-light light-green darken-1"
 							href="/connections/<%= aConnection._id %>"
 							data-position="bottom"
 							data-tooltip="Get Info"
