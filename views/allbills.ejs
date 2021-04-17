@@ -1,0 +1,24 @@
+<%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
+<div class="allbills container center-align">
+	<div class="container header">
+		<h1>All your connection bills</h1>
+	</div>
+	<ul class="collapsible popout">
+		<% bills.forEach(aBill => { %> <% if(aBill.owner.id.equals(currentUser._id)) { %>
+		<li>
+			<div class="collapsible-header">
+				<i class="material-icons">arrow_drop_down</i><%= aBill._id %>
+			</div>
+			<div class="collapsible-body">
+				<p>Owned by: <%= aBill.owner.username %></p>
+				<p>Payment done on: <%= aBill.paymentDate %></p>
+				<p>Total Local cost: <%= aBill.local %></p>
+				<p>Total ISD cost: <%= aBill.isd %></p>
+				<p>Total STD cost: <%= aBill.std %></p>
+				<p>Total price generated: <%= aBill.total %></p>
+			</div>
+		</li>
+		<% } %> <% }) %>
+	</ul>
+</div>
+<%- include('templates/footer.ejs') %>

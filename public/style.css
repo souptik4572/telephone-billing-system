@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
 
 .index {
 	width: 100vw;
@@ -141,7 +147,8 @@
 	text-transform: capitalize;
 }
 
-.connections .header {
+.connections .header,
+.allbills .header {
 	margin: 0 auto;
 	text-align: center;
 	padding: 2rem;
@@ -152,7 +159,8 @@
 	border-bottom-right-radius: 2rem;
 }
 
-.connections .header h1 {
+.connections .header h1,
+.allbills .header h1 {
 	margin: 0px;
 	font-size: 3rem;
 	text-transform: capitalize;
@@ -170,4 +178,26 @@
 	text-align: center;
 	padding: 2rem;
 	border-radius: 2rem;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+/* .page-footer {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+} */
+
+.page-footer .creators {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	font-size: 2rem;
+}
+
+.page-footer .creators p {
+	font-weight: bold;
 }
