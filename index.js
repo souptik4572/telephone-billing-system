@@ -225,6 +225,16 @@ app.get("/connections", isLoggedIn, (req, res) => {
   });
 });
 
+app.get("/admin", isLoggedIn, isAdmin, (req, res) => {
+  User.find({}, (error, users) => {
+    if (error) {
+      console.log("Oops an error while fetching all users");
+      return;
+    }
+    res.render("admin", { users });
+  });
+});
+
 app.post("/connections", (req, res) => {
   const { connection } = req.body;
   const { _id, username } = req.user;
