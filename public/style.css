@@ -180,30 +180,31 @@ body {
 	border-radius: 2rem;
 }
 
-main {
-	flex: 1 0 auto;
-}
-
-.footer .creators, .footer h6 {
+.page-footer .creators,
+.page-footer h6 {
 	color: white;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	font-size: 1.5rem;
 	font-family: 'Love Ya Like A Sister', cursive;
-    font-weight: bold;
+	font-weight: bold;
 }
 
-.footer h6 {
+.main {
+	flex: 1 0 auto;
+}
+
+.page-footer h6 {
 	font-size: 0.8rem;
 }
 
-.footer .creators p {
+.page-footer .creators p {
 	margin-right: 4rem;
 	margin-left: 4rem;
 	letter-spacing: 0.5rem;
 }
 
-.footer-copyright {
+.page-footer-copyright {
 	color: white;
 }
