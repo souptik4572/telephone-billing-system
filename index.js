@@ -198,6 +198,7 @@ app.put('/connections/:id', (req, res) => {
 
 app.delete('/connections/:id', (req, res) => {
 	const { id } = req.params;
+  const { _id, username } = req.user;
 	Connection.findByIdAndDelete(id, (error) => {
 		if (error) {
 			console.log('Oops an error while deleting');
