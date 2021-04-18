@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
 body {
 	display: flex;
 	min-height: 100vh;
@@ -157,6 +156,7 @@ body {
 	background-color: #ffc107;
 	border-bottom-left-radius: 2rem;
 	border-bottom-right-radius: 2rem;
+	overflow: auto;
 }
 
 .connections .header h1,
@@ -184,20 +184,26 @@ main {
 	flex: 1 0 auto;
 }
 
-/* .page-footer {
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-} */
-
-.page-footer .creators {
+.footer .creators, .footer h6 {
+	color: white;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
-	font-size: 2rem;
+	justify-content: center;
+	font-size: 1.5rem;
+	font-family: 'Love Ya Like A Sister', cursive;
+    font-weight: bold;
 }
 
-.page-footer .creators p {
-	font-weight: bold;
+.footer h6 {
+	font-size: 0.8rem;
+}
+
+.footer .creators p {
+	margin-right: 4rem;
+	margin-left: 4rem;
+	letter-spacing: 0.5rem;
+}
+
+.footer-copyright {
+	color: white;
 }
