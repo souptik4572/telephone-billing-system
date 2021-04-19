@@ -157,6 +157,7 @@ body {
 	border-bottom-left-radius: 2rem;
 	border-bottom-right-radius: 2rem;
 	overflow: auto;
+	cursor: pointer;
 }
 
 .connections .header h1,
@@ -213,4 +214,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+}
+
+.show-admin {
+	margin: 20px auto;
 }
