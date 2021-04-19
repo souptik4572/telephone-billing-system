@@ -208,3 +208,9 @@ body {
 .page-footer-copyright {
 	color: white;
 }
+
+.call-types {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}

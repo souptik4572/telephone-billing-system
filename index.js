@@ -11,13 +11,20 @@ const faker = require('faker');
 const User = require('./models/user');
 const Connection = require('./models/connection');
 const Bill = require('./models/bill');
-const { fake } = require('faker');
 
-mongoose.connect('mongodb://localhost:27017/user_db', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: true,
-});
+mongoose.connect(
+	'mongodb+srv://asta:telephone@cluster0.9fr0a.mongodb.net/user_db?retryWrites=true&w=majority',
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+	}
+);
+// mongoose.connect('mongodb://localhost:27017/user_db', {
+// 	useNewUrlParser: true,
+// 	useUnifiedTopology: true,
+// 	useFindAndModify: false,
+// });
 
 const app = express();
 
@@ -198,7 +205,7 @@ app.put('/connections/:id', (req, res) => {
 
 app.delete('/connections/:id', (req, res) => {
 	const { id } = req.params;
-  const { _id, username } = req.user;
+	const { _id, username } = req.user;
 	Connection.findByIdAndDelete(id, (error) => {
 		if (error) {
 			console.log('Oops an error while deleting');
