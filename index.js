@@ -12,14 +12,13 @@ const User = require('./models/user');
 const Connection = require('./models/connection');
 const Bill = require('./models/bill');
 
-mongoose.connect(
-	'mongodb+srv://asta:telephone@cluster0.9fr0a.mongodb.net/user_db?retryWrites=true&w=majority',
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	}
-);
+const url = process.env.DATABASEURL || 'mongodb://localhost:27017/user_db';
+
+mongoose.connect(url, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+});
 // mongoose.connect('mongodb://localhost:27017/user_db', {
 // 	useNewUrlParser: true,
 // 	useUnifiedTopology: true,
