@@ -1,0 +1,32 @@
+<%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
+<div class="container connections">
+	<div class="container header">
+		<h1>All connection details</h1>
+	</div>
+	<div class="row show-admin">
+		<% connections.forEach(function(connection) { %> <% if(connection.owner.id.equals(id)) { %>
+		<div class="single-connection container col s12 m3 l4">
+			<div class="card-panel orange lighten-2 white-text hoverable">
+				<h6>
+					Connection Status: <% if(connection.isPaymentPending) { %>
+					<span class="new badge pink accent-2" data-badge-caption="Not paid"></span>
+					<% } else{ %>
+					<span class="new badge light-green darken-3" data-badge-caption="Paid"></span>
+					<% } %>
+				</h6>
+				<p>
+					Connection Type:
+					<span class="planType <%= connection.connectionType %>">
+						<%= connection.connectionType.toUpperCase() %>
+					</span>
+				</p>
+				<p>Connection issued from account: <%= connection.owner.username %></p>
+				<p>Connection Owned by: <%= connection.firstName %> <%= connection.lastName %></p>
+				<p>Connection Address: <%= connection.address %></p>
+				<p>Owner phone number: <%= connection.mobileNumber %></p>
+			</div>
+		</div>
+		<% } %> <% }) %>
+	</div>
+</div>
+<%- include('templates/footer.ejs') %>

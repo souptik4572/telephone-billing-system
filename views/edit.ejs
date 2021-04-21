@@ -1,0 +1,77 @@
+<%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
+<div class="new-connection">
+	<h1>Edit <%= connection.connectionName %></h1>
+	<div class="container">
+		<div class="row">
+			<div class="container">
+				<form class="col s12" action="/connections/<%= connection._id %>?_method=PUT" method="POST">
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">account_circle</i>
+							<input
+								id="first_name"
+								type="text"
+								class="validate"
+								name="connection[firstName]"
+                                value="<%= connection.firstName %>"
+							/>
+							<label for="first_name">First Name</label>
+						</div>
+						<div class="input-field col s6">
+							<i class="material-icons prefix">account_circle</i>
+							<input
+								id="last_name"
+								type="text"
+								class="validate"
+								name="connection[lastName]"
+                                value="<%= connection.lastName %>"
+							/>
+							<label for="last_name">Last Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s6">
+							<i class="material-icons prefix">phone</i>
+							<input
+								id="icon_telephone"
+								type="tel"
+								class="validate"
+								name="connection[mobileNumber]"
+                                value="<%= connection.mobileNumber %>"
+							/>
+							<label for="icon_telephone">Telephone</label>
+						</div>
+						<div class="input-field col s6">
+							<select class="validate" name="connection[connectionType]" value="<%= connection.connectionType %>">
+								<option value="" disabled>Choose your plan</option>
+								<option value="standard" <%= connection.connectionType === 'standard' ? 'selected' : ''%>>Standard</option>
+								<option value="premium" <%= connection.connectionType === 'premium' ? 'selected' : ''%>>Premium</option>
+								<option value="platinum" <%= connection.connectionType === 'platinum' ? 'selected' : ''%>>Platinum</option>
+							</select>
+							<label>Connection Type</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">home</i>
+								<textarea
+									id="address"
+									class="materialize-textarea validate"
+									name="connection[address]"
+								><%= connection.address %></textarea>
+								<label for="address">Address</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<button class="btn waves-effect waves-light" type="submit" name="action">
+							Submit Edited Connection
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('templates/footer.ejs') %>

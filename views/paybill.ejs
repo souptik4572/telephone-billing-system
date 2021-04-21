@@ -1,0 +1,44 @@
+<%- include('templates/header.ejs') %> <%- include('./navbar.ejs') %>
+<div class="show">
+	<div class="single-connection container">
+		<h3>Connection Name: <%= connection.connectionName %></h3>
+		<p>
+			Connection Type:
+			<span class="planType <%= connection.connectionType %>"
+				><%= connection.connectionType.toUpperCase() %></span
+			>
+		</p>
+		<p>Connection issued from account <%= currentUser.username %></p>
+		<p>Connection Owned by <%= connection.firstName %> <%= connection.lastName %></p>
+		<p>Connection Address: <%= connection.address %></p>
+		<p>Owner phone number: <%= connection.mobileNumber %></p>
+		<div class="container row">
+			<form action="/connections/<%= connection._id %>/paybill" method="post">
+				<div class="col s6 call-types">
+					<p>Local Calls</p>
+					<p>ISD Calls</p>
+					<p>STD Calls</p>
+					<p>Total Amount</p>
+				</div>
+				<div class="col s6">
+					<input
+						type="number"
+						value="<%= billDesc.local %>"
+						name="bill[local]"
+						readonly
+					/>
+					<input type="number" value="<%= billDesc.isd %>" name="bill[isd]" readonly />
+					<input type="number" value="<%= billDesc.std %>" name="bill[std]" readonly />
+					<input
+						type="number"
+						value="<%= billDesc.total %>"
+						name="bill[total]"
+						readonly
+					/>
+				</div>
+				<button type="submit" class="btn">Paybill</button>
+			</form>
+		</div>
+	</div>
+</div>
+<%- include('templates/footer.ejs') %>
