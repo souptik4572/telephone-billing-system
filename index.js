@@ -50,43 +50,9 @@ app.use((req, res, next) => {
 
 // All our routes
 
-app.get('/register', (req, res) => {
-	res.render('register');
-});
-
-app.post('/register', (req, res) => {
-	const { username, name, password } = req.body;
-	User.register(new User({ username, name }), password, (error, user) => {
-		if (error) {
-			console.log(error);
-			return res.render('register');
-		}
-		passport.authenticate('local')(req, res, () => {
-			res.redirect('/connections');
-		});
-	});
-});
-
-app.get('/login', (req, res) => {
-	res.render('login');
-});
-
-app.post(
-	'/login',
-	passport.authenticate('local', {
-		successRedirect: '/connections',
-		failureRedirect: '/login',
-	}),
-	(req, res) => {}
-);
-
-app.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
-});
-
 app.use('/connections', connectionRouter);
 app.use('/admin', adminRouter);
+app.use('/auth', authenticationRouter);
 
 app.get('/', (req, res) => {
 	res.sendFile('index.html');
