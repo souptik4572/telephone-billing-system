@@ -2,16 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const passportLocalMongoose = require('passport-local-mongoose');
 const expressSession = require('express-session');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
-const faker = require('faker');
 // Our DB models
 const User = require('./models/user');
 
 const connectionRouter = require('./routes/connection');
 const adminRouter = require('./routes/admin');
+const authenticationRouter = require('./routes/authentication');
 
 const url = process.env.DATABASEURL || 'mongodb://localhost:27017/user_db';
 

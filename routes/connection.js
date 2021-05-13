@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const faker = require('faker');
 
 const User = require('../models/user');
 const Connection = require('../models/connection');
