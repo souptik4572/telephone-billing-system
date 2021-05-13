@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/user');
-const Connection = require('../models/connection');
 const { isLoggedIn, isAdmin } = require('../middleware');
 const {
 	getAdminPanel,
