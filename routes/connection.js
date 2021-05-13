@@ -13,6 +13,19 @@ const isLoggedIn = (req, res, next) => {
 	}
 	res.redirect('/login');
 };
+// is user admin check middleware
+const isAdmin = (req, res, next) => {
+	if (req.user.role === 'admin') return next();
+	res.redirect('/login');
+};
+
+
+// Our helper function to calcuate bill values
+const getRandomNumber = (min, max) => {
+	return Math.ceil(Math.random() * (max - min) + min);
+};
+
+// All of our connection routes
 
 router.get('/:id/paybill', isLoggedIn, (req, res) => {
 	const { id } = req.params;
