@@ -2,29 +2,23 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
-const User = require('../models/user');
+const {
+	getRegisterForm,
+	registerUser,
+	getLoginForm,
+	logoutUser,
+} = require('../controllers/authentication');
 
-router.get('/register', (req, res) => {
-	res.render('register');
-});
+// Get register form
+router.get('/register', getRegisterForm);
 
-router.post('/register', (req, res) => {
-	const { username, name, password } = req.body;
-	User.register(new User({ username, name }), password, (error, user) => {
-		if (error) {
-			console.log(error);
-			return res.render('register');
-		}
-		passport.authenticate('local')(req, res, () => {
-			res.redirect('/connections');
-		});
-	});
-});
+// Create and register new user
+router.post('/register', registerUser);
 
-router.get('/login', (req, res) => {
-	res.render('login');
-});
+// Get login form
+router.get('/login', getLoginForm);
 
+// Login user
 router.post(
 	'/login',
 	passport.authenticate('local', {
@@ -34,9 +28,7 @@ router.post(
 	(req, res) => {}
 );
 
-router.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
-});
+// Logout user
+router.get('/logout', logoutUser);
 
 module.exports = router;
