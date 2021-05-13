@@ -12,7 +12,6 @@ const User = require('./models/user');
 
 const connectionRouter = require('./routes/connection');
 const adminRouter = require('./routes/admin');
-const { isLoggedIn, isAdmin } = require('./middleware');
 
 const url = process.env.DATABASEURL || 'mongodb://localhost:27017/user_db';
 
@@ -49,20 +48,6 @@ app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	next();
 });
-
-// Our middleware
-// logged in check middleware
-const isLoggedIn = (req, res, next) => {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect('/login');
-};
-// is user admin check middleware
-const isAdmin = (req, res, next) => {
-	if (req.user.role === 'admin') return next();
-	res.redirect('/login');
-};
 
 // All our routes
 

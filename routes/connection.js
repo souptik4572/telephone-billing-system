@@ -4,20 +4,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Connection = require('../models/connection');
 const Bill = require('../models/bill');
-
-// Our middleware
-// logged in check middleware
-const isLoggedIn = (req, res, next) => {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect('/login');
-};
-// is user admin check middleware
-const isAdmin = (req, res, next) => {
-	if (req.user.role === 'admin') return next();
-	res.redirect('/login');
-};
+const { isLoggedIn } = require('../middleware');
 
 
 // Our helper function to calcuate bill values
