@@ -109,37 +109,6 @@ const getRandomNumber = (min, max) => {
 	return Math.ceil(Math.random() * (max - min) + min);
 };
 
-app.get('/admin', isLoggedIn, isAdmin, (req, res) => {
-	User.find({}, (error, users) => {
-		if (error) {
-			console.log('Oops an error while fetching all users');
-			return;
-		}
-		res.render('admin', { users });
-	});
-});
-
-app.get('/admin/:id', isLoggedIn, isAdmin, (req, res) => {
-	const { id } = req.params;
-	Connection.find({}, (error, connections) => {
-		if (error) {
-			console.log('Oops an error occurred while finding connection');
-		}
-		res.render('showAdmin', { connections: connections, id: id });
-	});
-});
-
-app.delete('/admin/:id', isLoggedIn, isAdmin, (req, res) => {
-	const { id } = req.params;
-	User.findByIdAndDelete(id, (error) => {
-		if (error) {
-			console.log('Oops an error while deleting');
-			return 0;
-		}
-		res.redirect('/admin');
-	});
-});
-
 app.get('/', (req, res) => {
 	res.sendFile('index.html');
 });
