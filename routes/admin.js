@@ -3,8 +3,6 @@ const router = express.Router();
 
 const User = require('../models/user');
 const Connection = require('../models/connection');
-const Bill = require('../models/bill');
-const { route } = require('./connection');
 
 // Our middleware
 // logged in check middleware

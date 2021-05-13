@@ -9,11 +9,10 @@ const bodyParser = require('body-parser');
 const faker = require('faker');
 // Our DB models
 const User = require('./models/user');
-const Connection = require('./models/connection');
-const Bill = require('./models/bill');
 
 const connectionRouter = require('./routes/connection');
 const adminRouter = require('./routes/admin');
+const { isLoggedIn, isAdmin } = require('./middleware');
 
 const url = process.env.DATABASEURL || 'mongodb://localhost:27017/user_db';
 
@@ -104,10 +103,6 @@ app.get('/logout', (req, res) => {
 
 app.use('/connections', connectionRouter);
 app.use('/admin', adminRouter);
-
-const getRandomNumber = (min, max) => {
-	return Math.ceil(Math.random() * (max - min) + min);
-};
 
 app.get('/', (req, res) => {
 	res.sendFile('index.html');
