@@ -7,6 +7,18 @@ const Connection = require('../models/connection');
 const Bill = require('../models/bill');
 const { isLoggedIn } = require('../middleware');
 
+const {
+	getBillForConnection,
+	payBillForConnection,
+	getAllPaidBills,
+	getNewConnectionForm,
+	getEditConnectionForm,
+	getParticularConnection,
+	editExistingConnection,
+	deleteExistingConnection,
+	getAllConnections,
+	createNewConnection,
+} = require('../controllers/connection');
 
 // Our helper function to calcuate bill values
 const getRandomNumber = (min, max) => {
@@ -15,6 +27,7 @@ const getRandomNumber = (min, max) => {
 
 // All of our connection routes
 
+// Show bill for a particular connection
 router.get('/:id/paybill', isLoggedIn, (req, res) => {
 	const { id } = req.params;
 	const billDesc = {};
@@ -31,6 +44,7 @@ router.get('/:id/paybill', isLoggedIn, (req, res) => {
 	});
 });
 
+// Submit payment for the bill of a particular connection
 router.post('/:id/paybill', (req, res) => {
 	const { id } = req.params;
 	const { bill } = req.body;
@@ -63,6 +77,7 @@ router.post('/:id/paybill', (req, res) => {
 	});
 });
 
+// Get list of all paid bills
 router.get('/allbills', isLoggedIn, (req, res) => {
 	Bill.find({}, (error, bills) => {
 		if (error) {
@@ -73,10 +88,12 @@ router.get('/allbills', isLoggedIn, (req, res) => {
 	});
 });
 
+// Get new connection form
 router.get('/new', isLoggedIn, (req, res) => {
 	res.render('new');
 });
 
+// Get form to edit existing connection
 router.get('/:id/edit', (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
@@ -87,6 +104,7 @@ router.get('/:id/edit', (req, res) => {
 	});
 });
 
+// Get details of a particular connection
 router.get('/:id', isLoggedIn, (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
@@ -97,6 +115,7 @@ router.get('/:id', isLoggedIn, (req, res) => {
 	});
 });
 
+// Edit an existing connection
 router.put('/:id', (req, res) => {
 	const { id } = req.params;
 	const { connection } = req.body;
@@ -109,6 +128,7 @@ router.put('/:id', (req, res) => {
 	});
 });
 
+// Delete existing connection
 router.delete('/:id', (req, res) => {
 	const { id } = req.params;
 	const { _id, username } = req.user;
@@ -138,6 +158,7 @@ router.delete('/:id', (req, res) => {
 	});
 });
 
+// Get all connections
 router.get('/', isLoggedIn, (req, res) => {
 	Connection.find({}, (error, connections) => {
 		if (error) {
@@ -148,6 +169,7 @@ router.get('/', isLoggedIn, (req, res) => {
 	});
 });
 
+// Create a new connection
 router.post('/', (req, res) => {
 	const { connection } = req.body;
 	const { _id, username } = req.user;

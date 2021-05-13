@@ -1,5 +1,3 @@
-const middlewareObject = {};
-
 // Our middleware
 // logged in check middleware
 const isLoggedIn = (req, res, next) => {
@@ -12,7 +10,7 @@ const isAdmin = (req, res, next) => {
 	res.redirect('/auth/login');
 };
 
-middlewareObject.isLoggedIn = isLoggedIn;
-middlewareObject.isAdmin = isAdmin;
-
-module.exports = middlewareObject;
+module.exports = {
+	isLoggedIn,
+	isAdmin,
+};
