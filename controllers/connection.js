@@ -4,6 +4,14 @@ const User = require('../models/user');
 const Connection = require('../models/connection');
 const Bill = require('../models/bill');
 
+// Our helper function to calcuate bill values
+const getRandomNumber = (min, max) => {
+	return Math.ceil(Math.random() * (max - min) + min);
+};
+
+// All of our connection controllers
+
+// Show bill for a particular connection
 const getBillForConnection = (req, res) => {
 	const { id } = req.params;
 	const billDesc = {};
@@ -20,6 +28,7 @@ const getBillForConnection = (req, res) => {
 	});
 };
 
+// Submit payment for the bill of a particular connection
 const payBillForConnection = (req, res) => {
 	const { id } = req.params;
 	const { bill } = req.body;
@@ -52,6 +61,7 @@ const payBillForConnection = (req, res) => {
 	});
 };
 
+// Get list of all paid bills
 const getAllPaidBills = (req, res) => {
 	Bill.find({}, (error, bills) => {
 		if (error) {
@@ -62,10 +72,12 @@ const getAllPaidBills = (req, res) => {
 	});
 };
 
+// Get new connection form
 const getNewConnectionForm = (req, res) => {
 	res.render('new');
 };
 
+// Get form to edit existing connection
 const getEditConnectionForm = (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
@@ -76,6 +88,7 @@ const getEditConnectionForm = (req, res) => {
 	});
 };
 
+// Get details of a particular connection
 const getParticularConnection = (req, res) => {
 	const { id } = req.params;
 	Connection.findById(id, (error, connection) => {
@@ -86,6 +99,7 @@ const getParticularConnection = (req, res) => {
 	});
 };
 
+// Edit an existing connection
 const editExistingConnection = (req, res) => {
 	const { id } = req.params;
 	const { connection } = req.body;
@@ -98,6 +112,7 @@ const editExistingConnection = (req, res) => {
 	});
 };
 
+// Delete existing connection
 const deleteExistingConnection = (req, res) => {
 	const { id } = req.params;
 	const { _id, username } = req.user;
@@ -127,6 +142,7 @@ const deleteExistingConnection = (req, res) => {
 	});
 };
 
+// Get all connections
 const getAllConnections = (req, res) => {
 	Connection.find({}, (error, connections) => {
 		if (error) {
@@ -137,6 +153,7 @@ const getAllConnections = (req, res) => {
 	});
 };
 
+// Create a new connection
 const createNewConnection = (req, res) => {
 	const { connection } = req.body;
 	const { _id, username } = req.user;
